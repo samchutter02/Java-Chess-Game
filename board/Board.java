@@ -43,12 +43,33 @@ public class Board {
         initializeBoard();
     }
 
-    public piece getPiece(Position pos){
-        // FIXME
+    public Piece getPiece(Position pos){
+        int row = pos.getRow(); //Gets the row number from the position object
+        int col = pos.getCol(); //Gets column number from the position object
+
+        //Verifies it's within the 8x8 board
+        if (row >= 0 && row < 8 && col >= 0 && col < 8) {
+            return board[row][col];
+        }
+        return null;
     }
 
     public boolean movePiece(Position from, Position to) {
-        // FIXME
+        Piece movingPiece = getPiece(from);
+
+        //Runs if player chooses a spot where there isn't a piece
+        if (movingPiece == null) {
+            System.out.println("No piece in that position.");
+            return false;
+        }
+        
+        //Moves the piece from the original position
+        board[from.getRow()][from.getCol()] = null;
+        //Moves the piece to the new position
+        board[to.getRow()][to.getCol()] = movingPiece;
+        //Updates the piece
+        movingPiece.setPosition(to);
+        
         return true;
     }
 
