@@ -1,15 +1,15 @@
+package pieces;
 import java.util.ArrayList;
 import java.util.List;
+import board.Board;
+import position.Position;
 
 // Bishop class
 public class Bishop extends Piece{ 
-    private String color;
-    private Position position;
     
     // constructor
     public Bishop(String color, Position position) {
-        this.color = color;
-        this.position = position;
+        super(color, position);
     }
 
     // getter and setter
@@ -46,11 +46,6 @@ public class Bishop extends Piece{
             int newRow = row + rowDirs[i];
             int newCol = col + colDirs[i];
 
-            // implement isValidPosition in board class
-            //public boolean isValidPosition(int row, int col) {
-            //return row >= 0 && row < 8 && col >= 0 && col < 8;
-            //}
-
             // while loop to check all possible moves in the direction
             while (board.isValidPosition(newRow, newCol)) {
                 Position newPos = new Position(newRow, newCol);
@@ -82,4 +77,3 @@ public class Bishop extends Piece{
 
     
 }
-

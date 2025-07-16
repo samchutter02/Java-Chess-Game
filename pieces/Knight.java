@@ -1,15 +1,17 @@
+package pieces;
 import java.util.List;
 import java.util.ArrayList;
 
+import board.Board;
+import position.Position;
+
 // Knight class
 public class Knight extends Piece{
-    private String color;
-    private Position position;
+
 
     // Constructor
     public Knight(String color, Position position) {
-        this.color = color;
-        this.position = position;
+        super(color, position);
     }
 
     // getter and setter
