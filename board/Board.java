@@ -1,3 +1,5 @@
+package board;
+
 import pieces.Knight;
 import pieces.Pawn;
 import pieces.Piece;
