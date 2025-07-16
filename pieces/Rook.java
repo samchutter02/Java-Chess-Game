@@ -1,13 +1,13 @@
+package pieces;
 import java.util.ArrayList;
 import java.util.List;
+import board.Board;
+import position.Position;
 
 // Rook class
 public class Rook extends Piece {
-    public String color;
-    public Position position;
     public Rook(String color, Position position) {
-        this.color = color;
-        this.position = position;
+        super(color, position);
     }
     // getter and setter
     @Override

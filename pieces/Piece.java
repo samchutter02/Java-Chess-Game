@@ -1,34 +1,34 @@
 package pieces;
-
+import board.Board;
+import java.util.List;
 import position.Position;
-import board.Board;
-import java.util.List;
-import java.util.List;
-import board.Board;
 
-public class Piece {
-    /*
-     * Add methods here
-     */
+public abstract class Piece {
+    protected String color;
+    protected Position position;
     
-    
-    public void piece(String color, Position position) { // constructor 
-
+    public Piece(String color, Position position) { // constructor 
+        this.color = color;
+        this.position = position;
     }
 
+    //return piece color
     public String getColor() {
-        // code to return color
+        return this.color;
     }
 
+    //return piece position
     public Position getPosition() {
-        // code to return position
+        return this.position;
     }
 
+    //set piece position
     public void setPosition(Position position) {
-        // code to set position
+        this.position = position;
     }
+    
     
     public abstract List<Position> possibleMoves(Board board);
-
+    
     public abstract String toString();
 }
