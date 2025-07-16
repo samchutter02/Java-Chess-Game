@@ -94,6 +94,10 @@ public class Board {
         }
     }   
 
+    public Boolean isValidPosition(int row, int col) {
+        return row >= 0 && row < 8 && col >= 0 && col < 8;
+    }
+
     @Override
     public String toString() {
         return color.equals("white") ? "wP" : "bP";
