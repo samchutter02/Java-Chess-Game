@@ -1,20 +1,19 @@
-import pieces.Knight;
-import pieces.Pawn;
-import pieces.Queen;
-import pieces.Rook; 
-import pieces.Bishop;
-import pieces.King;
-import pieces.Piece;
+package board;
+import pieces.*;
 import position.Position;
 
 public class Board {
     private Piece[][] board;
     private String currentTurn = "white";
     private boolean gameOver = false;
+    public Board() {
+        board = new Piece[8][8];
+        initializeBoard();
+    }
     /*
      * this class represents a chess board
-     * it initializes the board with pieces in their starting positions  |
-     * board is an 8x8 grid of Piece objects                             v
+     * it initializes the board with pieces in their starting positions  
+     * board is an 8x8 grid of Piece objects                             
     */
 
     private void initializeBoard() { // create initial board setup
@@ -49,16 +48,12 @@ public class Board {
         board = new Piece[8][8]; //array not including labels on TL or T
         initializeBoard();
     }
-    public boolean isValidPosition(int row, int col) {
-    return row >= 0 && row < 8 && col >= 0 && col < 8;
-}
-
 
     public Piece getPiece(Position pos){
-        // FIXME
+        int row = pos.getRow(); //Gets the row number from the position object
+        int col = pos.getCol(); //Gets column number from the position object
 
-        int row = pos.getRow();
-        int col = pos.getCol();
+        //Verifies it's within the 8x8 board
         if (row >= 0 && row < 8 && col >= 0 && col < 8) {
             return board[row][col];
         }
@@ -66,26 +61,21 @@ public class Board {
     }
 
     public boolean movePiece(Position from, Position to) {
-        // FIXME
-        if (gameOver){
-            System.out.println("The game is over.");
-            return false;
-        }
         Piece movingPiece = getPiece(from);
-        if (movingPiece == null) {
-            System.out.println("No piece at that position.");
-            return false;
-        }
-        Piece targetPiece = getPiece(to);
-        if (targetPiece != null && targetPiece.getColor().equals(movingPiece.getColor())) {
-            System.out.println("You can't capture your own piece.");
-            return false;
-        }
 
-        Piece captured = getPiece(to);
-        board[to.getRow()][to.getCol()] = movingPiece;
+        //Runs if player chooses a spot where there isn't a piece
+        if (movingPiece == null) {
+            System.out.println("No piece in that position.");
+            return false;
+        }
+        
+        //Moves the piece from the original position
         board[from.getRow()][from.getCol()] = null;
+        //Moves the piece to the new position
+        board[to.getRow()][to.getCol()] = movingPiece;
+        //Updates the piece
         movingPiece.setPosition(to);
+        
         return true;
     }
 
@@ -108,45 +98,17 @@ public class Board {
             }
             System.out.println();
         }
-    }
-    
-    public Position findKingPosition(String color) {
-    for (int row = 0; row < 8; row++) {
-        for (int col = 0; col < 8; col++) {
-            Piece piece = board[row][col];
-            if (piece instanceof King && piece.getColor().equals(color)) {
-                return new Position(row, col);
-            }
-        }
-    }
-    return null; // Should never happen in a valid game
-}  
-    public boolean isInCheck(string color){
-        Position Position_King = findKingPosition(color);
-        if (Position_King == null) {
-            return false;
-        String opponent = color.equals("white") ? "black" : "white";
-        }
-        for (int row = 0; row < 8; row++) {
-            for (int col = 0; col < 8; col++) {
-                Piece piece = board[row][col];
-                if (piece != null && !piece.getColor().equals(color)) {
-                    List<Position> possibleMoves = piece.possibleMoves(this);
-                    if (possibleMoves.contains(Position_King)) {
-                        return true;
-                    }
-                }
-            }
-        }
-        return false;
-
-    }
-
-    public String getCurrentTurn(){
+    }   
+     public String getCurrentTurn() {
         return currentTurn;
     }
 
-    public boolean isGameOver(){
+    public boolean isGameOver() {
         return gameOver;
     }
+
+    public Boolean isValidPosition(int row, int col) {
+        return row >= 0 && row < 8 && col >= 0 && col < 8;
+    }
+
 }
