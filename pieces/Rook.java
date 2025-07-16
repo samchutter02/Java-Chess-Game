@@ -1,3 +1,4 @@
+package pieces;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -6,8 +7,7 @@ public class Rook extends Piece {
     public String color;
     public Position position;
     public Rook(String color, Position position) {
-        this.color = color;
-        this.position = position;
+        super(color, position);
     }
     // getter and setter
     @Override

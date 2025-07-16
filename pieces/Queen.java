@@ -1,3 +1,4 @@
+package pieces;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -6,8 +7,7 @@ public class Queen extends Piece {
     private String color;
     private Position position;
     public Queen(String color, Position position) {
-        this.color = color;
-        this.position = position;
+        super(color, position);
     }
 // getter and setter
     @Override
@@ -59,8 +59,6 @@ public class Queen extends Piece {
             }
         }
         
-        
-
         // return possible moves
         return moves;
     }

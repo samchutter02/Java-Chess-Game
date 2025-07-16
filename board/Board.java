@@ -4,10 +4,11 @@ import pieces.Piece;
 import position.Position;
 
 public class Board {
+    private Piece[][] board;
     /*
      * this class represents a chess board
-     * it initializes the board with pieces in their starting positions  |
-     * board is an 8x8 grid of Piece objects                             v
+     * it initializes the board with pieces in their starting positions  
+     * board is an 8x8 grid of Piece objects                             
     */
 
     private void initializeBoard() { // create initial board setup

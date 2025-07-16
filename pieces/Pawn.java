@@ -1,3 +1,4 @@
+package pieces;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,8 +9,7 @@ public class Pawn extends Piece {
     private Position position;
 
     public Pawn(String color, Position position) {
-        this.color = color;
-        this.position = position;
+        super(color, position);
     }
 
     @Override
