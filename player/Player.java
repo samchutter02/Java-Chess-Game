@@ -4,8 +4,8 @@ import pieces.Piece;
 import board.Board;
 
 public class Player {
-    private String color;
-    private ArrayList<Piece> pieces;
+    private String color; // color of the player, e.g., "white" or "black"
+    private ArrayList<Piece> pieces; // pieces owned by the player
     private Board board;
 
     public Player(String color, Board board) {
