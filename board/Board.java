@@ -9,6 +9,8 @@ import position.Position;
 
 public class Board {
     private Piece[][] board;
+    private String currentTurn = "white";
+    private boolean gameOver = false;
     /*
      * this class represents a chess board
      * it initializes the board with pieces in their starting positions  |
@@ -65,6 +67,10 @@ public class Board {
 
     public boolean movePiece(Position from, Position to) {
         // FIXME
+        if (gameOver){
+            System.out.println("The game is over.");
+            return false;
+        }
         Piece movingPiece = getPiece(from);
         if (movingPiece == null) {
             System.out.println("No piece at that position.");
@@ -76,6 +82,7 @@ public class Board {
             return false;
         }
 
+        Piece captured = getPiece(to);
         board[to.getRow()][to.getCol()] = movingPiece;
         board[from.getRow()][from.getCol()] = null;
         movingPiece.setPosition(to);
@@ -114,5 +121,32 @@ public class Board {
     }
     return null; // Should never happen in a valid game
 }  
+    public boolean isInCheck(string color){
+        Position Position_King = findKingPosition(color);
+        if (Position_King == null) {
+            return false;
+        String opponent = color.equals("white") ? "black" : "white";
+        }
+        for (int row = 0; row < 8; row++) {
+            for (int col = 0; col < 8; col++) {
+                Piece piece = board[row][col];
+                if (piece != null && !piece.getColor().equals(color)) {
+                    List<Position> possibleMoves = piece.possibleMoves(this);
+                    if (possibleMoves.contains(Position_King)) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
 
+    }
+
+    public String getCurrentTurn(){
+        return currentTurn;
+    }
+
+    public boolean isGameOver(){
+        return gameOver;
+    }
 }
