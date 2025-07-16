@@ -21,7 +21,7 @@ public class Board {
         board[0][6] = new Knight("black", new Position(0,6));
         board[0][7] = new Rook("black", new Position(0,7)); // top right position
 
-        for(int i=0; i<8, i++){
+        for(int i=0; i<8; i++){
             board[1][i] = new Pawn("black", new Position(1,i));
         }
 
@@ -34,7 +34,7 @@ public class Board {
         board[7][6] = new Knight("white", new Position(7,6));
         board[7][7] = new Rook("white", new Position(7,7)); // bottom right position
 
-        for(int i=0; i<8, i++){
+        for(int i=0; i<8; i++){
             board[6][i] = new Pawn("white", new Position(6,i));
         }
     }
