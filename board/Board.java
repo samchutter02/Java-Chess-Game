@@ -1,6 +1,5 @@
-import pieces.Knight;
-import pieces.Pawn;
-import pieces.Piece;
+package board;
+import pieces.*;
 import position.Position;
 
 public class Board {
