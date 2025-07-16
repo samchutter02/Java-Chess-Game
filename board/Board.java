@@ -4,6 +4,7 @@ import pieces.Piece;
 import position.Position;
 
 public class Board {
+    private Piece[][] board;
     /*
      * this class represents a chess board
      * it initializes the board with pieces in their starting positions  |
@@ -43,12 +44,27 @@ public class Board {
         initializeBoard();
     }
 
-    public piece getPiece(Position pos){
+    public Piece getPiece(Position pos){
         // FIXME
+
+        int row = pos.getRow();
+        int col = pos.getCol();
+        if (row >= 0 && row < 8 && col >= 0 && col < 8) {
+            return board[row][col];
+        }
+        return null;
     }
 
     public boolean movePiece(Position from, Position to) {
         // FIXME
+        Piece movingPiece = getPiece(from);
+        if (movingPiece == null) {
+            System.out.println("No piece at that position.");
+            return false;
+        }
+        board[to.getRow()][to.getCol()] = movingPiece;
+        board[from.getRow()][from.getCol()] = null;
+        movingPiece.setPosition(to);
         return true;
     }
 
@@ -59,22 +75,4 @@ public class Board {
             System.out.print((8-row)+ " ");
             for(int col=0; col<8; col++) {
                 Piece p = board[row][col];
-                if(p != null){
-                    System.out.print(p + " ");
-                }else{
-                    if((row+col)%2==0){ // basically if 0 then black square, else white square, even/odd grid
-                        System.out.print("⬛"); 
-                    } else {
-                        System.out.print("⬜"); 
-                    }
-                }
-            }
-            System.out.println();
-        }
-    }   
-
-    @Override
-    public String toString() {
-        return color.equals("white") ? "wP" : "bP";
-    }
-}
+             
