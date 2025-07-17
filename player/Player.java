@@ -1,3 +1,4 @@
+package player;
 import java.util.ArrayList;
 import position.Position;
 import pieces.Piece;
@@ -13,14 +14,6 @@ public class Player {
         this.board = board;
         this.pieces = new ArrayList<>();
     }
-
-    public Position makeMove(Position from, Position to) {
-        //  Check if it's the player's turn or not, throws message if is not
-        if (!this.color.equals(board.getCurrentTurn())) {
-            System.out.println("It's not " + this.color + "'s turn.");
-            return null;
-        }
-
 
     public Position makeMove(Position from, Position to) {
         Piece movingPiece = board.getPiece(from);
@@ -41,4 +34,4 @@ public class Player {
         }
     }
 }
-}
+

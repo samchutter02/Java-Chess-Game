@@ -1,8 +1,7 @@
 package pieces;
-import java.util.List;
-import java.util.ArrayList;
-
 import board.Board;
+import java.util.ArrayList;
+import java.util.List;
 import position.Position;
 
 // Knight class
