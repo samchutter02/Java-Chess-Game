@@ -1,11 +1,12 @@
 package pieces;
 import java.util.ArrayList;
 import java.util.List;
+import board.Board;
+import position.Position;
 
 // Queen class
 public class Queen extends Piece {
-    private String color;
-    private Position position;
+
     public Queen(String color, Position position) {
         super(color, position);
     }

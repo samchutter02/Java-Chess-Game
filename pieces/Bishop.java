@@ -1,11 +1,11 @@
 package pieces;
 import java.util.ArrayList;
 import java.util.List;
+import board.Board;
+import position.Position;
 
 // Bishop class
 public class Bishop extends Piece{ 
-    private String color;
-    private Position position;
     
     // constructor
     public Bishop(String color, Position position) {
@@ -77,4 +77,3 @@ public class Bishop extends Piece{
 
     
 }
-

@@ -1,11 +1,12 @@
 package pieces;
 import java.util.List;
 import java.util.ArrayList;
+import board.Board;
+import position.Position;
 
 // King class
 public class King extends Piece {
-    private String color;
-    private Position position;
+
 
     // constructor
     public King(String color, Position position) {

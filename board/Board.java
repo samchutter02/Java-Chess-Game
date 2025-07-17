@@ -4,6 +4,12 @@ import position.Position;
 
 public class Board {
     private Piece[][] board;
+    private String currentTurn = "white";
+    private boolean gameOver = false;
+    public Board() {
+        board = new Piece[8][8];
+        initializeBoard();
+    }
     /*
      * this class represents a chess board
      * it initializes the board with pieces in their starting positions  
@@ -93,7 +99,12 @@ public class Board {
             System.out.println();
         }
     }   
+     public String getCurrentTurn() {
+        return currentTurn;
+    }
 
+    public boolean isGameOver() {
+        return gameOver;
     public Boolean isValidPosition(int row, int col) {
         return row >= 0 && row < 8 && col >= 0 && col < 8;
     }
@@ -102,4 +113,9 @@ public class Board {
     public String toString() {
         return color.equals("white") ? "wP" : "bP";
     }
+
+    public Boolean isValidPosition(int row, int col) {
+        return row >= 0 && row < 8 && col >= 0 && col < 8;
+    }
+
 }

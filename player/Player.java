@@ -15,6 +15,14 @@ public class Player {
     }
 
     public Position makeMove(Position from, Position to) {
+        //  Check if it's the player's turn or not, throws message if is not
+        if (!this.color.equals(board.getCurrentTurn())) {
+            System.out.println("It's not " + this.color + "'s turn.");
+            return null;
+        }
+
+
+    public Position makeMove(Position from, Position to) {
         Piece movingPiece = board.getPiece(from);
 
         //checking if the player's move is valid
@@ -32,4 +40,5 @@ public class Player {
             return null;
         }
     }
+}
 }

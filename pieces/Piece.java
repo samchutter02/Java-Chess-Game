@@ -1,8 +1,10 @@
 package pieces;
+import board.Board;
+import java.util.List;
+import position.Position;
 import position.Position;
 import board.Board;
 import java.util.List;
-
 public abstract class Piece {
     protected String color;
     protected Position position;
@@ -26,6 +28,7 @@ public abstract class Piece {
     public void setPosition(Position position) {
         this.position = position;
     }
+    
     
     public abstract List<Position> possibleMoves(Board board);
     
