@@ -2,7 +2,9 @@ package pieces;
 import board.Board;
 import java.util.List;
 import position.Position;
-
+import position.Position;
+import board.Board;
+import java.util.List;
 public abstract class Piece {
     protected String color;
     protected Position position;

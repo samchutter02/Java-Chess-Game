@@ -21,6 +21,16 @@ public class Player {
             return null;
         }
 
+
+    public Position makeMove(Position from, Position to) {
+        Piece movingPiece = board.getPiece(from);
+
+        //checking if the player's move is valid
+        if (movingPiece == null || !movingPiece.getColor().equals(this.color)) {
+            System.out.println("Invalid move");
+            return null; // Exit early if mode was invalid
+        }
+
         boolean success = board.movePiece(from, to); //Board performs the move
 
         if (success) {
@@ -30,4 +40,5 @@ public class Player {
             return null;
         }
     }
+}
 }
