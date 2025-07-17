@@ -1,7 +1,7 @@
 package pieces;
+import board.Board;
 import java.util.ArrayList;
 import java.util.List;
-import board.Board;
 import position.Position;
 
 // Bishop class

@@ -6,6 +6,9 @@ public class Board {
     private Piece[][] board;
     private String currentTurn = "white";
     private boolean gameOver = false;
+    public void setCurrentTurn(String color) {
+    this.currentTurn = color;
+}
     public Board() {
         board = new Piece[8][8];
         initializeBoard();
@@ -15,6 +18,10 @@ public class Board {
      * it initializes the board with pieces in their starting positions  
      * board is an 8x8 grid of Piece objects                             
     */
+    public void setPiece(Piece piece) {
+    Position pos = piece.getPosition();
+    board[pos.getRow()][pos.getCol()] = piece;
+        }
 
     private void initializeBoard() { // create initial board setup
         board[0][0] = new Rook("black", new Position(0,0)); // top left position
@@ -42,11 +49,6 @@ public class Board {
         for(int i=0; i<8; i++){
             board[6][i] = new Pawn("white", new Position(6,i));
         }
-    }
-
-    public Board() { // instantiate board
-        board = new Piece[8][8]; //array not including labels on TL or T
-        initializeBoard();
     }
 
     public Piece getPiece(Position pos){
@@ -105,15 +107,7 @@ public class Board {
 
     public boolean isGameOver() {
         return gameOver;
-    public Boolean isValidPosition(int row, int col) {
-        return row >= 0 && row < 8 && col >= 0 && col < 8;
     }
-
-    @Override
-    public String toString() {
-        return color.equals("white") ? "wP" : "bP";
-    }
-
     public Boolean isValidPosition(int row, int col) {
         return row >= 0 && row < 8 && col >= 0 && col < 8;
     }
