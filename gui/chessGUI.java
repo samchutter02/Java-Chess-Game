@@ -1,14 +1,14 @@
 package gui;
-import javax.swing.*;
 import java.awt.*;
+import javax.swing.*;
 
-public class ChessGUI extends JFrame {
+public class chessGUI extends JFrame {
     //Sets colors for the board
     private final Color whiteColor = new Color(255,255,230); // cream color
     private final Color blackColor = new Color(0,0,0); // black color
     private JPanel boardPanel;
 
-    public ChessGUI() {
+    public chessGUI() {
         setTitle("Chess Game");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null); // centers the window on your screen
@@ -34,6 +34,6 @@ public class ChessGUI extends JFrame {
     }
 
     public static void main (String[] args) {
-        SwingUtilities.invokeLater(() -> new ChessGUI());
+        SwingUtilities.invokeLater(() -> new chessGUI());
     }
 }
