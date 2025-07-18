@@ -1,8 +1,8 @@
 package player;
-import java.util.ArrayList;
-import position.Position;
-import pieces.Piece;
 import board.Board;
+import java.util.ArrayList;
+import pieces.Piece;
+import position.Position;
 
 public class Player {
     private String color; // color of the player, e.g., "white" or "black"
@@ -10,27 +10,28 @@ public class Player {
     private Board board;
 
     public Player(String color, Board board) {
-        this.color = color;
-        this.board = board;
-        this.pieces = new ArrayList<>();
+        this.color = color; // sets the player's color
+        this.board = board; // link to the shared game board
+        this.pieces = new ArrayList<>(); // initialize the pieces owned by the player
     }
 
-    public Position makeMove(Position from, Position to) {
+    public boolean makeMove(Position from, Position to) {
         Piece movingPiece = board.getPiece(from);
+
 
         //checking if the player's move is valid
         if (movingPiece == null || !movingPiece.getColor().equals(this.color)) {
             System.out.println("Invalid move");
-            return null; // Exit early if mode was invalid
+            return false; // Exit early if mode was invalid
         }
 
         boolean success = board.movePiece(from, to); //Board performs the move
 
         if (success) {
-            return to; //Move succeeds
+            return true; //Move succeeds
         } else {
             System.out.println("Move failed.");
-            return null;
+            return false;
         }
     }
 }
