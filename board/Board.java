@@ -79,49 +79,30 @@ public class Board {
             return false;
         }
         
-        //Moves the piece from the original position
+        Piece capturedPiece = getPiece(to);
         board[from.getRow()][from.getCol()] = null;
-        //Moves the piece to the new position
         board[to.getRow()][to.getCol()] = movingPiece;
-        //Updates the piece
         movingPiece.setPosition(to);
 
-        currentTurn = currentTurn.equals("white") ? "black" : "white";
+        if(isCheck(currentTurn)){ //Checks if the move puts the player in check
+            board[from.getRow()][from.getCol()] = movingPiece;
+            board[to.getRow()][to.getCol()] = capturedPiece;
+            movingPiece.setPosition(from);
+            System.out.println("This move puts you in check.");
         
-        return true;
-    }
-
-    public void display(){  // display the board in console
-        System.out.println("  a b c d e f g h"); // displays the letters of the board
-
-        for(int row=0; row<8; row++) { // displays the numbers of the board
-            System.out.print((8-row)+ " ");
-            for(int col=0; col<8; col++) {
-                Piece p = board[row][col];
-                if(p != null){
-                    System.out.print(p + " ");
-                }else{
-                    if((row+col)%2==0){ // basically if 0 then black square, else white square, even/odd grid
-                        System.out.print("⬛");  // black square
-                    } else {
-                        System.out.print("⬜");  // white square
-                    }
-                }
-            }
-            System.out.println(" " + (8-row));
+            return false;
         }
+          currentTurn = currentTurn.equals("white") ? "black" : "white";
 
-        System.out.println("  a b c d e f g h"); // displays the letters of the board
-    }   
-     public String getCurrentTurn() {
-        return currentTurn;
+    if (Checkmate(currentTurn)) {
+        System.out.println("Checkmate! " + (currentTurn.equals("white") ? "Black" : "White") + " wins.");
+        gameOver = true;
+    } else if (isCheck(currentTurn)) {
+        System.out.println(currentTurn + " is in check.");
     }
 
-    public boolean isGameOver() {
-        return gameOver;
-    }
-    public Boolean isValidPosition(int row, int col) { // checks if the position is within the 8x8 board
-        return row >= 0 && row < 8 && col >= 0 && col < 8;
+    return true;
+    
     }
 
-}
+    public void display(
