@@ -23,7 +23,7 @@ public class Board {
     board[pos.getRow()][pos.getCol()] = piece;
         }
 
-    private void initializeBoard() { // create initial board setup
+    public void initializeBoard() { // create initial board setup
         board[0][0] = new Rook("black", new Position(0,0)); // top left position
         board[0][1] = new Knight("black", new Position(0,1));
         board[0][2] = new Bishop("black", new Position(0,2));
