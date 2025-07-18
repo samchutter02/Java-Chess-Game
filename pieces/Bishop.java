@@ -72,7 +72,7 @@ public class Bishop extends Piece{
     // toString method
     @Override
     public String toString() {
-        return "Bishop{" + "color='" + color + '\'' + ", position=" + position + '}';
+        return color.equals("white") ?"♗" : "♝";
     }
 
     

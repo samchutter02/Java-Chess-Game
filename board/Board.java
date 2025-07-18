@@ -70,21 +70,45 @@ public class Board {
             System.out.println("No piece in that position.");
             return false;
         }
+        if (!movingPiece.getColor().equals(currentTurn)) {
+            System.out.println("It is " + movingPiece.getColor() + "'s turn.");
+            return false;
+        }
+        if (!movingPiece.possibleMoves(this).contains(to)) {
+            System.out.println("That is not a valid move.");
+            return false;
+        }
         
-        //Moves the piece from the original position
+        Piece capturedPiece = getPiece(to);
         board[from.getRow()][from.getCol()] = null;
-        //Moves the piece to the new position
         board[to.getRow()][to.getCol()] = movingPiece;
-        //Updates the piece
         movingPiece.setPosition(to);
+
+        if(isCheck(currentTurn)){ //Checks if the move puts the player in check
+            board[from.getRow()][from.getCol()] = movingPiece;
+            board[to.getRow()][to.getCol()] = capturedPiece;
+            movingPiece.setPosition(from);
+            System.out.println("This move puts you in check.");
         
-        return true;
+            return false;
+        }
+          currentTurn = currentTurn.equals("white") ? "black" : "white";
+
+    if (Checkmate(currentTurn)) {
+        System.out.println("Checkmate! " + (currentTurn.equals("white") ? "Black" : "White") + " wins.");
+        gameOver = true;
+    } else if (isCheck(currentTurn)) {
+        System.out.println(currentTurn + " is in check.");
+    }
+
+    return true;
+    
     }
 
     public void display(){  // display the board in console
-        System.out.println();
+        System.out.println("  a b c d e f g h"); // displays the letters of the board
 
-        for(int row=0; row<8; row++) {
+        for(int row=0; row<8; row++) { // displays the numbers of the board
             System.out.print((8-row)+ " ");
             for(int col=0; col<8; col++) {
                 Piece p = board[row][col];
@@ -92,15 +116,86 @@ public class Board {
                     System.out.print(p + " ");
                 }else{
                     if((row+col)%2==0){ // basically if 0 then black square, else white square, even/odd grid
-                        System.out.print("⬛"); 
+                        System.out.print("⬛");  // black square
                     } else {
-                        System.out.print("⬜"); 
+                        System.out.print("⬜");  // white square
                     }
                 }
             }
-            System.out.println();
+            System.out.println(" " + (8-row));
         }
-    }   
+
+        System.out.println("  a b c d e f g h"); // displays the letters of the board
+    }  
+    
+    private Position findKingPosition(String color) {
+        for (int row = 0; row < 8; row++) {
+            for (int col = 0; col < 8; col++) {
+                Piece piece = board[row][col];
+                if (piece != null && piece instanceof King && piece.getColor().equals(color)) {
+                    return new Position(row, col);
+                }
+            }
+        }
+        return null;
+    }
+
+    public boolean isCheck(String color) { // checks if the player is in check
+        Position kingPosition = findKingPosition(color);
+        if (kingPosition == null) {
+            return false;
+        }
+        for (int row = 0; row < 8; row++) {
+            for (int col = 0; col < 8; col++) {
+                Piece piece = board[row][col];
+                if (piece != null && !piece.getColor().equals(color)) {
+                    if (piece.possibleMoves(this).contains(kingPosition)) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    public boolean Checkmate(String color) {
+        if (!isCheck(color)){
+            return false;
+        }
+        for (int row = 0; row < 8; row++) { // Loop through rows
+            for (int col = 0; col < 8; col++) { // Loop through columns
+                Piece piece = board[row][col]; // Get the piece at the current position
+                if (piece != null && piece.getColor().equals(color)) { // Check if the piece is not null and belongs to the current player
+                    for (Position move : piece.possibleMoves(this)) { // Loop through possible moves for the piece
+
+                        Position from = piece.getPosition(); // Get the current position of the piece
+                        Position to = move; // Get the piece that will be captured by the move
+                        Piece capturedPiece = getPiece(to); // Get the piece that will be captured by the move
+                        
+                        board[from.getRow()][from.getCol()] = null; // Remove the piece from its current position
+                        board[to.getRow()][to.getCol()] = piece; // Move the piece to the new position
+                        piece.setPosition(to); // Update the piece's position
+
+                        boolean check = isCheck(color); // Check if the player is still in check
+
+                        // Undo the move and check if the player is still in check
+                        board[from.getRow()][from.getCol()] = piece;
+                        board[to.getRow()][to.getCol()] = capturedPiece;
+                        piece.setPosition(from);
+
+                        if (!check) {// if the player is not in check after the move, it is not checkmate
+                            return false;
+                        }
+                    }
+                }
+            }
+        }
+        return true; // if the player is in check and there are no valid moves, it is checkmate
+    }
+
+
+
+    
      public String getCurrentTurn() {
         return currentTurn;
     }
@@ -108,7 +203,7 @@ public class Board {
     public boolean isGameOver() {
         return gameOver;
     }
-    public Boolean isValidPosition(int row, int col) {
+    public Boolean isValidPosition(int row, int col) { // checks if the position is within the 8x8 board
         return row >= 0 && row < 8 && col >= 0 && col < 8;
     }
 
