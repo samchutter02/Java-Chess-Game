@@ -29,10 +29,4 @@ public class Player {
 
         if (success) {
             return true; //Move succeeds
-        } else {
-            System.out.println("Move failed.");
-            return false;
-        }
-    }
-}
-
+ 
