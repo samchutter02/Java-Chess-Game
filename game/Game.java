@@ -1,8 +1,8 @@
 package game;
 
 import board.Board;
-import player.Player;
 import java.util.Scanner;
+import player.Player;
 
 public class Game {
     private Board board;
