@@ -3,6 +3,7 @@ import java.util.Scanner;
 import player.Player;
 import position.Position;
 
+
 public class Main {
 
     public static boolean isValidPosition(String notation) {  // check if notation is valid and in correct format
