@@ -162,19 +162,35 @@ public class Board {
         if (!isCheck(color)){
             return false;
         }
-        for (int row = 0; row < 8; row++) {
-            for (int col = 0; col < 8; col++) {
-                Piece piece = board[row][col];
-                if (piece != null && piece.getColor().equals(color)) {
-                    for (Position move : piece.possibleMoves(this)) {
-                        if (!isCheck(color)) {
+        for (int row = 0; row < 8; row++) { // Loop through rows
+            for (int col = 0; col < 8; col++) { // Loop through columns
+                Piece piece = board[row][col]; // Get the piece at the current position
+                if (piece != null && piece.getColor().equals(color)) { // Check if the piece is not null and belongs to the current player
+                    for (Position move : piece.possibleMoves(this)) { // Loop through possible moves for the piece
+
+                        Position from = piece.getPosition(); // Get the current position of the piece
+                        Position to = move; // Get the piece that will be captured by the move
+                        Piece capturedPiece = getPiece(to); // Get the piece that will be captured by the move
+                        
+                        board[from.getRow()][from.getCol()] = null; // Remove the piece from its current position
+                        board[to.getRow()][to.getCol()] = piece; // Move the piece to the new position
+                        piece.setPosition(to); // Update the piece's position
+
+                        boolean check = isCheck(color); // Check if the player is still in check
+
+                        // Undo the move and check if the player is still in check
+                        board[from.getRow()][from.getCol()] = piece;
+                        board[to.getRow()][to.getCol()] = capturedPiece;
+                        piece.setPosition(from);
+
+                        if (!check) {// if the player is not in check after the move, it is not checkmate
                             return false;
                         }
                     }
                 }
             }
         }
-        return true;
+        return true; // if the player is in check and there are no valid moves, it is checkmate
     }
 
 
