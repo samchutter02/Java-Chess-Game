@@ -70,6 +70,14 @@ public class Board {
             System.out.println("No piece in that position.");
             return false;
         }
+        if (!movingPiece.getColor().equals(currentTurn)) {
+            System.out.println("It is " + movingPiece.getColor() + "'s turn.");
+            return false;
+        }
+        if (!movingPiece.possibleMoves(this).contains(to)) {
+            System.out.println("That is not a valid move.");
+            return false;
+        }
         
         //Moves the piece from the original position
         board[from.getRow()][from.getCol()] = null;
@@ -77,14 +85,16 @@ public class Board {
         board[to.getRow()][to.getCol()] = movingPiece;
         //Updates the piece
         movingPiece.setPosition(to);
+
+        currentTurn = currentTurn.equals("white") ? "black" : "white";
         
         return true;
     }
 
     public void display(){  // display the board in console
-        System.out.println();
+        System.out.println("  a b c d e f g h"); // displays the letters of the board
 
-        for(int row=0; row<8; row++) {
+        for(int row=0; row<8; row++) { // displays the numbers of the board
             System.out.print((8-row)+ " ");
             for(int col=0; col<8; col++) {
                 Piece p = board[row][col];
@@ -92,14 +102,16 @@ public class Board {
                     System.out.print(p + " ");
                 }else{
                     if((row+col)%2==0){ // basically if 0 then black square, else white square, even/odd grid
-                        System.out.print("⬛"); 
+                        System.out.print("⬛");  // black square
                     } else {
-                        System.out.print("⬜"); 
+                        System.out.print("⬜");  // white square
                     }
                 }
             }
-            System.out.println();
+            System.out.println(" " + (8-row));
         }
+
+        System.out.println("  a b c d e f g h"); // displays the letters of the board
     }   
      public String getCurrentTurn() {
         return currentTurn;
@@ -108,7 +120,7 @@ public class Board {
     public boolean isGameOver() {
         return gameOver;
     }
-    public Boolean isValidPosition(int row, int col) {
+    public Boolean isValidPosition(int row, int col) { // checks if the position is within the 8x8 board
         return row >= 0 && row < 8 && col >= 0 && col < 8;
     }
 

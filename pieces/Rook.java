@@ -68,6 +68,6 @@ public class Rook extends Piece {
 // toString/Print
     @Override
     public String toString() {
-        return "Rook{" + "color='" + color + '\'' + ", position=" + position + '}';
+        return color.equals("white") ? "♖" : "♜";
     }
 }

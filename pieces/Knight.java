@@ -71,6 +71,6 @@ public class Knight extends Piece{
     // toString/print
     @Override
     public String toString() {
-        return "Knight{" + "color='" + color + '\'' + ", position=" + position + '}';
+        return getColor().equals("white") ? "♘" : "♞";
     }
 }
