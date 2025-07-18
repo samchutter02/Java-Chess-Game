@@ -105,4 +105,90 @@ public class Board {
     
     }
 
-    public void display(
+    public void display(){  // display the board in console
+        System.out.println("  a b c d e f g h"); // displays the letters of the board
+
+        for(int row=0; row<8; row++) { // displays the numbers of the board
+            System.out.print((8-row)+ " ");
+            for(int col=0; col<8; col++) {
+                Piece p = board[row][col];
+                if(p != null){
+                    System.out.print(p + " ");
+                }else{
+                    if((row+col)%2==0){ // basically if 0 then black square, else white square, even/odd grid
+                        System.out.print("⬛");  // black square
+                    } else {
+                        System.out.print("⬜");  // white square
+                    }
+                }
+            }
+            System.out.println(" " + (8-row));
+        }
+
+        System.out.println("  a b c d e f g h"); // displays the letters of the board
+    }  
+    
+    private Position findKingPosition(String color) {
+        for (int row = 0; row < 8; row++) {
+            for (int col = 0; col < 8; col++) {
+                Piece piece = board[row][col];
+                if (piece != null && piece instanceof King && piece.getColor().equals(color)) {
+                    return new Position(row, col);
+                }
+            }
+        }
+        return null;
+    }
+
+    public boolean isCheck(String color) { // checks if the player is in check
+        Position kingPosition = findKingPosition(color);
+        if (kingPosition == null) {
+            return false;
+        }
+        for (int row = 0; row < 8; row++) {
+            for (int col = 0; col < 8; col++) {
+                Piece piece = board[row][col];
+                if (piece != null && !piece.getColor().equals(color)) {
+                    if (piece.possibleMoves(this).contains(kingPosition)) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    public boolean Checkmate(String color) {
+        if (!isCheck(color)){
+            return false;
+        }
+        for (int row = 0; row < 8; row++) {
+            for (int col = 0; col < 8; col++) {
+                Piece piece = board[row][col];
+                if (piece != null && piece.getColor().equals(color)) {
+                    for (Position move : piece.possibleMoves(this)) {
+                        if (!isCheck(color)) {
+                            return false;
+                        }
+                    }
+                }
+            }
+        }
+        return true;
+    }
+
+
+
+    
+     public String getCurrentTurn() {
+        return currentTurn;
+    }
+
+    public boolean isGameOver() {
+        return gameOver;
+    }
+    public Boolean isValidPosition(int row, int col) { // checks if the position is within the 8x8 board
+        return row >= 0 && row < 8 && col >= 0 && col < 8;
+    }
+
+}
