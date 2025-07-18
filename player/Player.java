@@ -29,7 +29,4 @@ public class Player {
 
         if (success) {
             return true; //Move succeeds
-        }
-        return false;
-    }
-}
+ 
